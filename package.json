@@ -1,0 +1,30 @@
+{
+  "name": "rag-poc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@langchain/core": "^1.0.4",
+    "@langchain/openai": "^1.1.0",
+    "@langchain/textsplitters": "^1.0.0",
+    "@qdrant/js-client-rest": "^1.15.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "langchain": "^1.0.4",
+    "multer": "^2.0.2",
+    "openai": "^6.8.1",
+    "pdf-parse": "^2.4.5",
+    "pdfjs-dist": "^5.4.394",
+    "save": "^2.9.0",
+    "unpdf": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
