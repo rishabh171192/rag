@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bank Policy RAG Demo</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <h1>Bank Policy RAG Demo</h1>
+        <p>Upload new PDFs and ask questions using the same UI.</p>
+      </header>
+
+      <section class="card">
+        <h2>1. Ingest PDF</h2>
+        <form id="ingest-form" class="form" enctype="multipart/form-data">
+          <label>
+            Bank name
+            <input
+              type="text"
+              name="bank_name"
+              id="ingest-bank"
+              placeholder="e.g. icici"
+              required
+            />
+          </label>
+
+          <label>
+            Policy PDF
+            <input type="file" name="file" id="pdf-file" accept="application/pdf" required />
+          </label>
+
+          <button type="submit">Upload &amp; Ingest</button>
+        </form>
+        <p id="ingest-status" class="status"></p>
+      </section>
+
+      <section class="card">
+        <h2>2. Ask a Question</h2>
+        <form id="query-form" class="form">
+          <label>
+            Bank name
+            <input
+              type="text"
+              name="bank_name"
+              id="query-bank"
+              placeholder="Same as ingest bank name"
+              required
+            />
+          </label>
+
+          <label>
+            Question
+            <textarea
+              name="query"
+              id="query-text"
+              rows="4"
+              placeholder="What charges apply for..."
+              required
+            ></textarea>
+          </label>
+
+          <button type="submit">Send Query</button>
+        </form>
+
+        <div class="answer-container">
+          <div class="answer-header">
+            <h3>Answer</h3>
+            <span id="answer-status" class="status"></span>
+          </div>
+          <pre id="answer-output"></pre>
+        </div>
+      </section>
+    </main>
+
+    <script src="/script.js" type="module"></script>
+  </body>
+</html>
+

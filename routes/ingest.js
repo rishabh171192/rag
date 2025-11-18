@@ -35,15 +35,34 @@ router.post("/", upload.single("file"), async (req, res) => {
 
     // Upload to Qdrant
     for (const [i, doc] of docs.entries()) {
-      const test = await embeddings.embedQuery(doc.pageContent);
+      const vector = await embeddings.embedQuery(doc.pageContent);
+      // Additional useful metadata for RAG:
+      // - totalPages: total number of pages in the PDF (if available)
+      // - chunk_size: length of the text chunk
+      // - file_type: to indicate it's a PDF
+      // - ingestion_id: unique session/batch ID for uploaded file
+      // - original_upload_name: original filename (redundant with 'source', but more explicit if needed)
+      // - ingest_user: (if available in context/auth, not here)
+      // - ingest_time: duplicate with uploaded_at
+      // - doc_id: perhaps a UUID per document/chunk
+
+      // Example rewrite with some of these extras:
       await qdrant.upsert(collectionName, {
         points: [
           {
-            id: Date.now() + i,
-            vector: test,
+            id: Date.now(),
+            vector,
             payload: {
               text: doc.pageContent,
               source: req.file.originalname,
+              bank: bank_name,
+              page: doc.metadata?.page,
+              totalPages: doc.metadata?.totalPages,
+              chunk: i,
+              chunk_size: doc.pageContent.length,
+              file_type: "pdf",
+              original_upload_name: req.file.originalname,
+              uploaded_at: new Date().toISOString(),
             },
           },
         ],
