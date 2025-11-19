@@ -28,23 +28,73 @@ router.post("/", async (req, res) => {
       // filter: { must: [ { key: "relevant_tag", match: { value: true } } ] }
     });
 
-    // 5️⃣ (Optional, recommended!) Rerank results locally using a cross-encoder (e.g., OpenAI's search endpoint or Cohere rerank)
-    //    This improves answer quality. You can call OpenAI embeddings or LLM to score each context against the query.
+    // === Reranker Selection & Application ===
+    // Use flag from request body: "reranker" possible values: "bge-base", "cohere-v3", "minilm", or null (default/none)
+    // Each reranker is selected and invoked appropriately
+    const { reranker = "bge-base" } = req.body;
 
-    // 6️⃣ Deduplicate similar chunks, consider grouping by document source, or merge overlapping spans for context.
+    // Utility to prepare relevant reranker
+    async function rerankWithBGEBase(query, results) {
+      // Assume you have bgeReranker with .rerank(query, passages) -> [{ idx, score }]
+      // This would typically call HuggingFace or an external service
+      if (!global.bgeReranker) {
+        throw new Error("BGE ReRanker not initialized"); // Placeholder
+      }
+      const passages = results.map((r) => r.payload.text);
+      const scores = await global.bgeReranker.rerank(query, passages);
+      // Merge scores back to results
+      return scores
+        .map((sc, i) => ({ ...results[i], rerank_score: sc.score }))
+        .sort((a, b) => b.rerank_score - a.rerank_score);
+    }
 
-    // 7️⃣ Use semantic sorting (by similarity score) and optionally threshold score for 'confidence' in below steps.
+    async function rerankWithCohereV3(query, results) {
+      // Assume you have cohereRerank with .rerank(query, passages) -> [{ idx, score }]
+      if (!global.cohereReranker) {
+        throw new Error("Cohere ReRanker not initialized");
+      }
+      const passages = results.map((r) => r.payload.text);
+      const cohereResults = await global.cohereReranker.rerank(
+        query,
+        passages,
+        { model: "rerank-english-v3.0" }
+      );
+      // Each cohereResults[i] has .score; merge to results
+      // Optional: filter or threshold based on score
+      return cohereResults
+        .map((co, i) => ({ ...results[i], rerank_score: co.score }))
+        .sort((a, b) => b.rerank_score - a.rerank_score);
+    }
 
-    // If you need just top N, you may truncate after reranking/deduplication.
+    // Not a correct re ranked.. remove after POC
+    async function rerankWithMiniLM(query, results) {
+      // Assume you have miniLMRanker with .rerank(query, passages) -> [{ idx, score }]
+      if (!global.miniLMRanker) {
+        throw new Error("MiniLM Cross-Encoder not initialized");
+      }
+      const passages = results.map((r) => r.payload.text);
+      const miniLMResults = await global.miniLMRanker.rerank(query, passages);
+      return miniLMResults
+        .map((ml, i) => ({ ...results[i], rerank_score: ml.score }))
+        .sort((a, b) => b.rerank_score - a.rerank_score);
+    }
 
-    const context = searchResults.map((r) => r.payload.text).join("\n\n");
+    let rerankedResults = searchResults; // By default, no reranking
+    if (reranker === "bge-base") {
+      rerankedResults = await rerankWithBGEBase(query, searchResults);
+      console.log(rerankedResults);
+    } else if (reranker === "cohere-v3") {
+      rerankedResults = await rerankWithCohereV3(query, searchResults);
+    } else if (reranker === "minilm") {
+      rerankedResults = await rerankWithMiniLM(query, searchResults);
+    }
 
-    // Always respond in **JSON format** with the following keys:
-    // {
-    //   "answer": "Concise, customer-friendly explanation.",
-    //   "source": "Name of policy or document if available.",
-    //   "confidence": "high | medium | low"
-    // }
+    // Use only top 6 (after rerank), safer context size:
+    const context = rerankedResults
+      .slice(0, 5)
+      .map((r) => r.payload.text)
+      .join("\n\n");
+
     const systemPrompt = `
     You are FinAI, a banking assistant. Use only the given context to answer.
     If unsure, respond: "I'm sorry, I couldn’t find that information in our current policy data."
@@ -55,7 +105,6 @@ router.post("/", async (req, res) => {
     ${context}
     `;
 
-    // 4️⃣ Stream response
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
 
     const stream = await llm.stream([
