@@ -100,20 +100,35 @@ router.post("/", async (req, res) => {
       .join("\n\n");
 
     const systemPrompt = `
-    You are FinAI, a banking assistant. Use only the given context to answer.
-    If unsure, respond: "I'm sorry, I couldn’t find that information in our current policy data."
-    
+      You are FinAI — a banking policy assistant.
+      
+      Answer using ONLY the provided context.
+      
+      HARD RULES:
+      1. Use ONLY facts from the context.
+      2. No assumptions, interpretations, or outside knowledge.
+      3. Stick exactly to the intent of the text.
+      4. No examples or hypotheticals.
+      5. Provide only what exists in the context.
+      6. If information is missing, respond exactly:
+         "I'm sorry, I couldn't find that information in our current policy data."
+      
+      RESPONSE STYLE:
+      - Short, precise, factual.
+      - No filler, no repeating the question.
+      `;
 
-    
-    Context:
-    ${context}
-    `;
+    const userPrompt = `Context:
+      ${context}
+
+      Question:
+      ${query}`;
 
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
 
     const stream = await llm.stream([
       { role: "system", content: systemPrompt },
-      { role: "user", content: query },
+      { role: "user", content: userPrompt },
     ]);
 
     for await (const chunk of stream) {

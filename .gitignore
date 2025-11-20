@@ -3,3 +3,5 @@ package-lock.json
 uploads/
 node_modules/
 .DS_Store
+ragas-env
+*.pyc
