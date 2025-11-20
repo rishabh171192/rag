@@ -1,0 +1,52 @@
+{"question":"What services are offered under ICICI Bank@Home?","answer":"Cash payment, cash deposit, DD/PO delivery, and instrument pickup.","reference":"Services include Cash Payment, Cash Deposit, DD/PO Delivery, Instrument Pick up."}
+{"question":"What is the minimum age required to use Bank@Home services?","answer":"18 years.","reference":"Customer must be at least 18 years of age."}
+{"question":"What is the transaction limit for cash withdrawal through Bank@Home?","answer":"Between ₹2,000 and ₹2,00,000 per request.","reference":"Cash withdrawal per request between Rs. 2,000 to Rs. 2,00,000."}
+{"question":"What is the transaction limit for DD/PO delivery?","answer":"Between ₹2,000 and ₹2,00,000 per request.","reference":"DD Delivery per request between Rs. 2,000 to Rs. 2,00,000."}
+{"question":"What are the charges per visit for Bank@Home?","answer":"₹50 plus applicable taxes.","reference":"Rs 50 + applicable taxes per visit."}
+{"question":"Does instrument pickup have a transaction limit?","answer":"No.","reference":"Instrument Pickup: No Limit."}
+{"question":"Through which channels can customers apply for Bank@Home?","answer":"Through 24-Hour Customer Care, Infinity Internet Banking, ICICI branches, or other approved channels.","reference":"Application may be made through 24-Hour Customer Care, Infinity, any branch, or other modes."}
+{"question":"How long after applying through Infinity does service activation take?","answer":"A minimum of one working day.","reference":"Services shall be activated after a minimum of one working day for applications via Infinity."}
+{"question":"Can applications submitted at a branch be used immediately?","answer":"Yes, customers can avail services immediately at branches.","reference":"For Applications submitted at ICICI Bank branches, the Customer can avail the Services immediately."}
+{"question":"What must a customer provide for cash payment instructions via phone banking?","answer":"An ICICI Bank cheque number and a cancelled cheque.","reference":"Customer shall provide an ICICI Bank cheque number and hand over a cancelled cheque."}
+{"question":"What must customers hand over for DD/PO delivery?","answer":"A cancelled cheque or acknowledgement form.","reference":"Customer shall hand over the Cancelled Cheque or Acknowledgement Form."}
+{"question":"Is ICICI Bank required to verify instruction authenticity?","answer":"No.","reference":"ICICI Bank shall not be required to independently verify the veracity or authenticity of the Instructions."}
+{"question":"Who is responsible for the actions of Bank@Home service agents?","answer":"ICICI Bank is responsible.","reference":"ICICI Bank shall be responsible for the acts of omission or commission of the Agents."}
+{"question":"Is ICICI Bank liable for delays caused by system failures?","answer":"No.","reference":"ICICI Bank shall not be responsible for delay due to failure of operational systems."}
+{"question":"What must the customer do if currency notes are tampered or defective?","answer":"Such notes must not be provided; they will be returned by the agent.","reference":"No cut/soiled/mutilated/tampered/defective currency notes shall be accepted."}
+{"question":"Does ICICI Bank accept liability for counterfeit notes handed over by the customer?","answer":"No.","reference":"ICICI Bank shall not be held liable for not crediting the value of defective/discrepant/counterfeit notes."}
+{"question":"What time window is the Bank@Home service available?","answer":"9:00 AM to 5:00 PM on ICICI working days.","reference":"Available between 9:00 am to 5:00 pm on every working day."}
+{"question":"Are services available on ICICI Bank Holidays?","answer":"No.","reference":"Services shall not be available on ICICI Bank Holidays."}
+{"question":"Can customers request service for the same working day?","answer":"Yes, with a minimum gap of 2 hours before the requested time.","reference":"Customer must provide Instructions minimum two hours prior to the requested time."}
+{"question":"How must a customer verify an agent's identity?","answer":"By checking the agent's identification card and service request number.","reference":"Customer shall verify the Agent’s identity and Service Request Number."}
+{"question":"When is instrument pickup credited?","answer":"In the next clearing cycle, subject to realization.","reference":"Instruments would be credited in the next clearing cycle subject to realization."}
+{"question":"Can ICICI Bank suspend services without notice?","answer":"Yes, during emergencies or security reasons.","reference":"ICICI Bank may suspend the Services without prior notice for emergencies or security reasons."}
+{"question":"Can customers modify a previous instruction through Infinity?","answer":"Yes, but only after cancelling the earlier instruction.","reference":"Customer shall cancel the earlier Instruction before providing a fresh Instruction."}
+{"question":"Can ICICI Bank refuse instructions?","answer":"Yes, without assigning any reason.","reference":"ICICI Bank may refuse to comply with Instructions without assigning any reason."}
+{"question":"Does ICICI Bank guarantee receipt of instructions sent via phone/internet?","answer":"No.","reference":"Transmission may be subject to tampering, unauthorized access, or not received in whole."}
+{"question":"Where will legal disputes be handled?","answer":"In courts or tribunals at Mumbai.","reference":"Any legal action or proceedings shall be brought in the courts or tribunals at Mumbai."}
+{"question":"Can ICICI Bank transfer its rights under the terms?","answer":"Yes.","reference":"ICICI Bank shall have the right to transfer, assign or sell all its rights."}
+{"question":"Can customers transfer Bank@Home services?","answer":"No, the services are non-transferable.","reference":"Services provided to the Customer are not transferable."}
+{"question":"What happens if an unauthorized person learns the customer’s authentication information?","answer":"Customer must notify ICICI Bank immediately.","reference":"If authentication procedure may be known by an unauthorized person, Customer must notify ICICI Bank immediately."}
+{"question":"Will ICICI Bank notify customers of changes to the terms?","answer":"Yes.","reference":"Amended Terms shall be communicated by hosting on Infinity."}
+{"question":"Is the envelope containing cash payment checked for tampering by the customer?","answer":"Yes.","reference":"Customer shall scrutinize the envelope for any signs of tampering."}
+{"question":"Must customers count money delivered by the agent?","answer":"Yes, customers must check the money in front of the agent.","reference":"Customer shall check the monies in front of the Agent."}
+{"question":"Can customers request services for the next working day?","answer":"Yes.","reference":"Customer can request service for the same or the next working day."}
+{"question":"Who provides the cash deposit envelope?","answer":"The agent provides it.","reference":"Agent shall provide the Customer with a cash deposit envelope."}
+{"question":"Under what condition can ICICI Bank terminate services permanently?","answer":"At its discretion, with or without prior notice.","reference":"ICICI Bank may withdraw or terminate the Services at any time without prior notice."}
+{"question":"Is ICICI Bank liable for business interruption or loss of profits?","answer":"No.","reference":"ICICI Bank shall not be liable for any direct, indirect, incidental, special or consequential damages including loss of profits."}
+{"question":"Are stop-payment instructions automatically applied to cancelled cheques?","answer":"Yes, they are deemed to have been provided automatically.","reference":"Stop payment instructions shall be deemed to have been provided for the Cancelled Cheque."}
+{"question":"Can ICICI Bank contact customers via phone or email for processing instructions?","answer":"Yes.","reference":"ICICI Bank may contact the Customer through phone, email, letter or otherwise."}
+{"question":"If a customer submits an application at a branch and immediately tries to give instructions through Infinity, will it work?","answer":"Not immediately. Infinity instructions require one working day.","reference":"Infinity instructions require one working day after application receipt."}
+{"question":"If a customer hands over money for deposit without verifying the agent's identity, is ICICI Bank liable for any resulting loss?","answer":"No.","reference":"ICICI Bank shall not be liable if Customer does not undertake the verification steps."}
+{"question":"If a counterfeit note is found in the deposit, how much is credited?","answer":"Only genuine notes are credited.","reference":"ICICI Bank shall deduct counterfeit notes."}
+{"question":"Can a customer request a cash delivery for ₹500?","answer":"No.","reference":"Minimum limit is Rs. 2,000."}
+{"question":"Who is responsible for incorrect instructions caused by transmission errors?","answer":"The customer.","reference":"ICICI Bank not liable for transmission errors."}
+{"question":"Can customers negotiate service charges?","answer":"No.","reference":"ICICI Bank determines fees."}
+{"question":"When are instructions submitted on a non-working day executed?","answer":"Next working day.","reference":"Executed on next working day."}
+{"question":"Are stale or defective instruments accepted for pickup?","answer":"No.","reference":"Customer shall not provide stale or defective instruments."}
+{"question":"Must customers sign across the sealed portion of deposit envelopes?","answer":"Yes.","reference":"Customer shall sign across the sealed portion."}
+{"question":"If cash envelope appears torn, what must customer do?","answer":"Return all money to the agent.","reference":"Customer must hand over monies back if discrepancy exists."}
+{"question":"Can customers request services two days in advance?","answer":"No.","reference":"Only same or next working day allowed."}
+{"question":"Is ICICI Bank required to keep records of instructions?","answer":"No.","reference":"Bank has no obligation to maintain records."}
+{"question":"Are services provided only at registered communication address?","answer":"Yes.","reference":"Services provided only at communication address with ICICI Bank."}
+{"question":"What happens if customer fails to pay service fees?","answer":"Interest may be charged or services withdrawn.","reference":"Failure to pay fees may lead to interest or service withdrawal."}

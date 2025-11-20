@@ -2,7 +2,7 @@
 import express from "express";
 import { qdrant } from "../services/qdrant.js";
 import { embeddings, llm } from "../services/openai.js";
-
+import { cohere } from "../services/cohereReranker.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
     // === Reranker Selection & Application ===
     // Use flag from request body: "reranker" possible values: "bge-base", "cohere-v3", "minilm", or null (default/none)
     // Each reranker is selected and invoked appropriately
-    const { reranker = "bge-base" } = req.body;
+    const { reranker = "cohere-v3" } = req.body;
 
     // Utility to prepare relevant reranker
     async function rerankWithBGEBase(query, results) {
@@ -41,6 +41,7 @@ router.post("/", async (req, res) => {
         throw new Error("BGE ReRanker not initialized"); // Placeholder
       }
       const passages = results.map((r) => r.payload.text);
+
       const scores = await global.bgeReranker.rerank(query, passages);
       // Merge scores back to results
       return scores
@@ -50,18 +51,21 @@ router.post("/", async (req, res) => {
 
     async function rerankWithCohereV3(query, results) {
       // Assume you have cohereRerank with .rerank(query, passages) -> [{ idx, score }]
-      if (!global.cohereReranker) {
-        throw new Error("Cohere ReRanker not initialized");
-      }
       const passages = results.map((r) => r.payload.text);
-      const cohereResults = await global.cohereReranker.rerank(
+
+      const cohereResults = await cohere.rerank({
         query,
-        passages,
-        { model: "rerank-english-v3.0" }
-      );
+        documents: passages,
+        topN: 5,
+        model: "rerank-english-v3.0", // or multilingual model
+      });
+      // const cohereResults = await cohere.rerank(query, passages, {
+      //   model: "rerank-english-v3.0",
+      // });
+      const output = cohereResults.results;
       // Each cohereResults[i] has .score; merge to results
       // Optional: filter or threshold based on score
-      return cohereResults
+      return output
         .map((co, i) => ({ ...results[i], rerank_score: co.score }))
         .sort((a, b) => b.rerank_score - a.rerank_score);
     }
