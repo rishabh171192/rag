@@ -22,8 +22,8 @@ app.use(express.static("public"));
 app.use("/ingest", ingestRoute);
 app.use("/query", queryRoute);
 
-await initBGEReranker();
-await initMiniLMRanker();
+// await initBGEReranker();
+// await initMiniLMRanker();
 // await initCohereReranker();
 
 global.bgeReranker = new BGEReranker();
