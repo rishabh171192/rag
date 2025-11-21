@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     // 4️⃣ Fetch and sort by score (if available), and check if Qdrant supports filtering for more precise results.
     const searchResults = await qdrant.search(collectionName, {
       vector: queryVector, // or normalizedQueryVector
-      limit: 8, // Fetch more for reranking/selecting best set
+      limit: 20, // Fetch more for reranking/selecting best set
       // filter: { must: [ { key: "relevant_tag", match: { value: true } } ] }
     });
 
@@ -56,7 +56,7 @@ router.post("/", async (req, res) => {
       const cohereResults = await cohere.rerank({
         query,
         documents: passages,
-        topN: 5,
+        topN: 10,
         model: "rerank-english-v3.0", // or multilingual model
       });
       // const cohereResults = await cohere.rerank(query, passages, {
@@ -66,7 +66,7 @@ router.post("/", async (req, res) => {
       // Each cohereResults[i] has .score; merge to results
       // Optional: filter or threshold based on score
       return output
-        .map((co, i) => ({ ...results[i], rerank_score: co.score }))
+        .map((co, i) => ({ ...results[i], rerank_score: co.relevanceScore }))
         .sort((a, b) => b.rerank_score - a.rerank_score);
     }
 
@@ -95,27 +95,29 @@ router.post("/", async (req, res) => {
 
     // Use only top 6 (after rerank), safer context size:
     const context = rerankedResults
-      .slice(0, 5)
+      .slice(0, 10)
       .map((r) => r.payload.text)
       .join("\n\n");
 
     const systemPrompt = `
-      You are FinAI — a banking policy assistant.
-      
-      Answer using ONLY the provided context.
-      
-      HARD RULES:
-      1. Use ONLY facts from the context.
-      2. No assumptions, interpretations, or outside knowledge.
-      3. Stick exactly to the intent of the text.
-      4. No examples or hypotheticals.
-      5. Provide only what exists in the context.
-      6. If information is missing, respond exactly:
-         "I'm sorry, I couldn't find that information in our current policy data."
-      
-      RESPONSE STYLE:
-      - Short, precise, factual.
-      - No filler, no repeating the question.
+        You are FinAI — a banking policy assistant.
+
+        STRICT RULES:
+
+        Use only facts present in the provided context.
+
+        Do not invent or assume any information.
+
+        You may improve grammar and remove duplicated wording, but you must not change the factual meaning.
+
+        If the context does not contain the answer, respond exactly with:
+        "I'm sorry, I couldn't find that information in our current policy data."
+
+        Do not repeat the question.
+
+        Do not add explanations, examples, or interpretations.
+
+        Keep the answer short, precise, and factual.
       `;
 
     const userPrompt = `Context:
